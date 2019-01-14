@@ -67,7 +67,7 @@ void data_in() {
 			scanf("%lli ", &histogram[i]);
 		}
 
-		int result = max_rectangle(0, N - 1);
+		long long result = max_rectangle(0, N - 1);
 		printf("%lli\n", result);
 
 		histogram.erase(histogram.begin(), histogram.end());
