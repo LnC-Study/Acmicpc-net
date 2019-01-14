@@ -5,7 +5,7 @@
 
 using namespace std;
 
-vector<int> histogram;
+vector<long long> histogram;
 
 long long max_rectangle(int start, int end) {
 
@@ -21,7 +21,7 @@ long long max_rectangle(int start, int end) {
 	int left = mid;
 	int right = mid + 1;
 
-	int height = min(histogram[left], histogram[right]);
+	long long height = min(histogram[left], histogram[right]);
 
 	long long area = height * (right - left + 1);
 	ret = max(ret, area);
@@ -61,10 +61,10 @@ void data_in() {
 		if (N == 0)
 			break;
 
-		histogram = vector<int>(N);
+		histogram = vector<long long>(N);
 
 		for (int i = 0; i < N; i++) {
-			scanf("%d ", &histogram[i]);
+			scanf("%lli ", &histogram[i]);
 		}
 
 		int result = max_rectangle(0, N - 1);
