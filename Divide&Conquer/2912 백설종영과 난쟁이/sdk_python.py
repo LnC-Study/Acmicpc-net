@@ -47,7 +47,7 @@ def divide_N_conquer( _N, _C, _littleBoys):
 
 @check_execution_time
 def linear( _N, _littleBoys):
-    result = counter( _littleBoys)
+    result = counter( list(_littleBoys))
     print('Result:', result)
 
 def solution( _N, _C, _littleBoys):
