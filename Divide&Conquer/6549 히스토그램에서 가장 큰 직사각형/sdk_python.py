@@ -39,7 +39,7 @@ def data_in():
     return list( map( int, input().split()))
 
 def divide_N_conquer( _segmentTree, _left, _right, _rectangles):
-    if _right < _left or _left > _right: return 0
+    if _right < _left: return 0
     if _left == _right: return _rectangles[ _left]
 
     minHeightIndex = _segmentTree.get_min_height_index( _segmentTree.head, _left, _right)
