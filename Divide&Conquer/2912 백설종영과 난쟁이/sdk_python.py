@@ -35,7 +35,8 @@ def divide_N_conquer( _N, _C, _littleBoys):
     with concurrent.futures.ProcessPoolExecutor( max_workers = processSize) as executor:
         executorResult = executor.map( counter, dividedLittleBoys)
 
-    for partialResult in executorResult:
+    for idx, partialResult in enumerate(executorResult):
+        print( f'{idx}: {partialResult}')
         for value in partialResult.keys():
             if value in totalResult:
                 totalResult[value] += partialResult[value]
