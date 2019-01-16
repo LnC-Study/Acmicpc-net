@@ -47,11 +47,7 @@ def divide_N_conquer( _N, _C, _littleBoys):
 
 @check_time
 def linear( _N, _littleBoys):
-    result = {}
-    for boy in _littleBoys:
-        if boy in result: result[boy] +=1
-        else : result[boy] = 1
-
+    result = counter( _littleBoys)
     print('Result:', result)
 
 def solution( _N, _C, _littleBoys):
