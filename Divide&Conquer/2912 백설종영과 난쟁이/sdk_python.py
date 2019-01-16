@@ -7,7 +7,7 @@ def data_in():
     littleBoys = [ random. randrange(1, C+1) for _ in range(N)]
     return N, C, littleBoys
 
-def check_time( _originFunction):
+def check_execution_time( _originFunction):
     def wrapper( *args, **kwargs):
         startTime = time.time()
         _originFunction( *args, **kwargs)
@@ -22,7 +22,7 @@ def counter( _assignedLittleBoys):
         else : result[boy] = 1
     return result
 
-@check_time
+@check_execution_time
 def divide_N_conquer( _N, _C, _littleBoys):
     processSize = 8
     batchSize = int(  _N / processSize)
@@ -45,7 +45,7 @@ def divide_N_conquer( _N, _C, _littleBoys):
 
     print('Result:', totalResult)
 
-@check_time
+@check_execution_time
 def linear( _N, _littleBoys):
     result = counter( _littleBoys)
     print('Result:', result)
