@@ -31,7 +31,7 @@ int is_pretty(int begin, int end) {
 
 #### [Python document](https://docs.python.org/ko/3/library/concurrent.futures.html)
 
-```
+```python
 def counter( _assignedLittleBoys):
     result = {}
     for boy in _assignedLittleBoys:
