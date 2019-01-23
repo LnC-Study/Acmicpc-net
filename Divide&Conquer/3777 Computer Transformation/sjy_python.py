@@ -1,15 +1,25 @@
-sec = int(input())
+import sys
 
 
 def transform(cnt):
-    if cnt == 1:
-        return 0
-    elif cnt == 2:
-        return 1
+    arr = [0, 0, 1] # using index from 1
 
-    else:
-        if cnt % 2 == 0: # 앞에꺼 다 더하고 + 1
-            return 2 * transform(cnt - 1) + 1
+    if cnt <= 2:
+        return arr[cnt]
 
-        else: # 앞에꺼 다 더함
-            return 2*transform(cnt-1) - 1
+    for step in range(3,cnt+1):
+        if step % 2 == 0:
+            arr.append(2*arr[step-1] + 1)
+        else:
+            arr.append(2*arr[step-1] - 1)
+
+    return arr[cnt]
+
+
+testCase = sys.stdin.read()
+testCase = testCase.split('\n')
+testCase.pop()
+testCase = map(int, testCase)
+
+for question in testCase:
+    print(transform(question))
