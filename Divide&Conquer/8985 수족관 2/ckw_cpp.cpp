@@ -114,7 +114,7 @@ void data_in() {
 
 	pair<long long, double> result = aqua2(0, prevX - 1, 0);
 
-	printf("%.2lf\n%lli", result.second, result.first);
+	printf("%.2lf\n%lli", round(result.second * 100) / 100, result.first);
 
 }
 
