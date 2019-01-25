@@ -6,12 +6,20 @@ for cnt in range(length):
     square.append(list(input()))
 
 
-# def compress(square):
-    # if square <= 1: # 한칸짜리면
-    #     return its value    그거 그대로 출력
-    #
-    # else: # 2칸짜리 이상이면
-    #     return compress(square/2) # 반 나눠서 recursive
+def compress(x, y, len): # 0,0,8
+    print('('+square[y][x], end='') # 어차피 처음에꺼는 무조건 print 함
+
+    for yCur in range(y, len):
+        if square[yCur][x:x+len].count(square[yCur][x]) is not len: # 처음꺼랑 같은게 끝까지 나오지 않는다면
+            compress(x, yCur, len // 2) # 1분면
+            compress(x+(len//2), yCur, len // 2) # 2분면
+            compress(x, yCur+(len//2), len // 2) # 3분면
+            compress(x+(len//2), yCur+(len//2), len // 2) # 4분면
+
+
+
+
+compress(0, 0, length)
 
 
 # 8
