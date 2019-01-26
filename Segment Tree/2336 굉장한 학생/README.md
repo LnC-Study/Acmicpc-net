@@ -1,0 +1,1 @@
+# [2336 굉장한 학생] (https://www.acmicpc.net/problem/2336)
