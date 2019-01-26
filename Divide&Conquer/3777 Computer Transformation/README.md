@@ -1,5 +1,7 @@
 # [3777 Computer Transformation](https://www.acmicpc.net/problem/3777)
 ## 첫번째 풀이법: 점화식(Recurrence relation) 이용한 DP
+원래는 분할정복으로 풀어야 하지만..의도치 않게 dp로 먼저 풀게 되었슴다..!
+
 | 변형횟수 | 변형 후 값 | '00' 등장 횟수 |
 |:--------:|:--------:|:--------:|
 | 1 | 0 1 | 0 |
