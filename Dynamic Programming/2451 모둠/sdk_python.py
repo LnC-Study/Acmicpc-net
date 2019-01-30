@@ -15,7 +15,7 @@ def get_trace_list( _current, _dp):
     return groupSize
 
 def solution( _N, _doKnow):
-    cuts, dp = [], [{'cut':0, 'pass':0, 'prev':0, 'min':0 } for _ in range( _N + 1)]
+    cuts, dp = [], [{'cut': 0, 'pass': 0, 'prev': 0, 'min': 0 } for _ in range( _N + 1)]
     for idx in range( 1, _N + 1):
         dp[idx]['cut'] = dp[idx-1]['min'] + bisect_left( _doKnow[idx-1], idx)
 
