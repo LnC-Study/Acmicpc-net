@@ -19,7 +19,7 @@ def solution( _N, _K):
     if _K > _N / 2: return 0
     if _K == 1 : return _N
 
-    # left(N,K) + right(N,K) - mid(N-1,K)
+    # left(N - 1,K) + right(N - 1,K) - mid(N-2,K)
     return get_dp_value( _N - 1, _K) * 2 - get_dp_value( _N-2, _K)
 
 if __name__ == '__main__':
