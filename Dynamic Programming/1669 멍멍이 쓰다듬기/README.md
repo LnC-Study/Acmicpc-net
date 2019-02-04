@@ -1,0 +1,1 @@
+# [1669번 멍멍이 쓰다듬기](https://www.acmicpc.net/problem/1669)
