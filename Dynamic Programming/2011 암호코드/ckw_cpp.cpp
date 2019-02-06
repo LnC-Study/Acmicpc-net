@@ -1,6 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <string>
+<<<<<<< HEAD
+=======
+#include <string.h>
+>>>>>>> 5c9bc966dae8983f476f5bf1e4a5e5e0474f4b27
 #define MAXN 5001
 #define MOD 1000000
 using namespace std;
@@ -59,4 +63,8 @@ int main() {
 
 	data_in();
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 5c9bc966dae8983f476f5bf1e4a5e5e0474f4b27
