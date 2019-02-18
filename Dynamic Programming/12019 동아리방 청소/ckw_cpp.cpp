@@ -1,138 +1,79 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <vector>
-#include <queue>
+#include <algorithm>
+#include <string.h>
 
 using namespace std;
 
-vector<vector<int>>adj;
-vector<int> indegree;
+const int INF = 987654321;
+int cache[101][101][2001];
+int N;
+vector<int> stNum;
+int min_unplea(int day, int leftM, int dirty) {
 
-//인접리스트의 indegree를 줄이고, indegree가 0인 것이 2개이상이면 true를 반환한다.
-bool decr_adj_indegree(int num) { 
+	if (leftM < 0)
+		return INF;
 
-	int cnt = 0;
-	indegree[num]--; 
+	if (day >= N - 1)
+		return dirty * stNum[day];
 
-	for (int i = 0; i < adj[num].size(); i++) {
-		if (adj[num][i]) {
-			indegree[i]--;
-			
-			if (!indegree[i])
-				cnt++;
-		}
-	}
+	int &ret = cache[day][leftM][dirty];
+	if (ret != -1)
+		return ret;
 
-	return cnt > 1;
+	int clean = min_unplea(day + 1, leftM - 1, 0);
+	int unclean = min_unplea(day + 1, leftM, dirty + stNum[day]);
+
+	return ret = min(
+		clean + dirty * stNum[day],
+		unclean + dirty * stNum[day]
+	);
 }
 
-queue<int> topologicalSort() {
-	queue<int> search;
-	queue<int> result;
+vector<int> reconstruct(int day, int leftM, int dirty) {
 
-	for (int i = 0; i < adj.size(); i++) {
-		if (!indegree[i]) {
-			search.push(i);
+	if (day >= N - 1)
+		return vector<int>();
 
-			if (decr_adj_indegree(i)) {
-				queue<int> r;
-				r.push(-1);
-				return r;
-			}
-		}
+	int clean = min_unplea(day + 1, leftM - 1, 0);
+	int unclean = min_unplea(day + 1, leftM, dirty + stNum[day]);
+
+	if (min_unplea(day, leftM, dirty) ==
+		clean + dirty * stNum[day])
+	{
+		vector<int> ret;
+		vector<int> nxt = reconstruct(day + 1, leftM - 1, 0);
+
+		ret.push_back(day);
+		ret.insert(ret.end(), nxt.begin(), nxt.end());
+
+		return ret;
 	}
 
-	while(!search.empty()){
-	
-		int here = search.front();
-		search.pop();
-		result.push(here);
-
-		for (int i = 0; i < adj[here].size(); i++) {
-			if(adj[here][i])
-				if (!indegree[i]) {
-					search.push(i);
-					if (decr_adj_indegree(i)) {
-						queue<int> r;
-						r.push(-1);
-						return r;
-					}
-				}
-		}
-	}
-
-	return result;
+	return reconstruct(day + 1, leftM, stNum[day] + dirty);
 }
 
 void data_in() {
 
-	int C;
+	int M;
 
 	freopen("input.txt", "r", stdin);
+	memset(cache, -1, sizeof(int) * 100 * 100 * 2000);
+	scanf("%d %d ", &N, &M);
 
-	scanf("%d ", &C);
+	stNum = vector<int>(N);
 
-	for (int i = 0; i < C; i++) {
-		int n, m;
-		scanf("%d ", &n);
-
-		indegree = vector<int>(n, 0);
-		adj = vector<vector<int>>(n,vector<int>(n,0));
-		 
-		for (int j = 0; j < n; j++) {
-			scanf("%d ", &indegree[j]);
-			indegree[j]--;
-		}
-
-		for (int j = 0; j < n; j++) {
-			for (int k = 0; k < n; k++) {
-				if (indegree[k] > indegree[j]) {
-					adj[j][k]++;
-				}
-			}
-		}
-
-		scanf("%d ", &m);
-		for (int j = 0; j < m; j++) {
-			int win, lose;
-			scanf("%d %d ", &win, &lose);
-			win--;
-			lose--;
-
-			adj[win][lose]++;
-			adj[lose][win]--;
-
-			indegree[win]--;
-			indegree[lose]++;
-		}
-
-		queue<int> result = topologicalSort();
-
-		if (result.size() == 1) {
-			if (result.front() == -1) {
-				printf("?\n");
-				continue;
-			}
-		}
-
-		if (result.size() != n) {
-			printf("IMPOSSIBLE");
-			continue;
-		}
-
-		vector<int> rank = vector<int>(n);
-		int cnt = 1;
-		while (!result.empty()) {
-			rank[result.front()] = cnt++;
-			result.pop();
-		}
-
-		for (int i = 0; i < rank.size(); i++)
-			printf("%d ", rank[i]);
-
-		printf("\n");
-
+	for (int i = 0; i < N; i++) {
+		scanf("%d ", &stNum[i]);
 	}
+
+	printf("%d\n",min_unplea(0, M, 0));
+	vector<int> path = reconstruct(0, M, 0);
+	for (int i = 0; i < path.size(); i++) {
+		printf("%d ", path[i] + 1);
+	}
+
 }
 
 int main() {
