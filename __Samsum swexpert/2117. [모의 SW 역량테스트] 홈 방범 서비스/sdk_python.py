@@ -2,7 +2,7 @@ def data_in():
     N, M = map( int, input().split())
     return N, M, [ list( map( int, input().split())) for _ in range( N)]
 
-def get_house_location( size, city_map):
+def get_house_location( size, city_map) -> list:
     result = []
     for row in range( size):
         for col in range( size):
@@ -10,7 +10,7 @@ def get_house_location( size, city_map):
 
     return result
 
-def get_profit( service_center, service_size, cost):
+def get_profit( service_center, service_size, cost) -> int:
     profit, receiver = -( service_size ** 2 + (service_size-1) ** 2), 0
     for house in house_location:
         # check that a house can receive the service from center
@@ -20,9 +20,9 @@ def get_profit( service_center, service_size, cost):
             profit += cost
             receiver += 1
 
-    return receiver if profit > 0 else 0
+    return receiver if profit >= 0 else 0
 
-def solution( size, cost, city_map):
+def solution( size, cost, city_map) -> int:
     global house_location
     house_location = get_house_location( size, city_map)
 
