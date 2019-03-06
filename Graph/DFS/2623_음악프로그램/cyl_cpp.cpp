@@ -1,5 +1,3 @@
-// 백준에서 런타임 에러 뜨는데 왜..?ㅠㅠㅠㅠ
-
 #include <iostream>
 #include <vector>
 #include <queue>
