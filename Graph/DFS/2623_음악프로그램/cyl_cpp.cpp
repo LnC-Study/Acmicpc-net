@@ -45,9 +45,13 @@ int main(void) {
             search.push(i);
     } // push a vertex which has 0 indegree
     
+    bool flag = true; // check whether we can do topological sort or not
+    
     for(int i=0; i<n; i++) {
-        if(search.empty())
+        if(search.empty()) {
+            flag = false; // cannot 
             break;
+        }
 
         int temp = search.front();
         result.push(temp);
@@ -63,6 +67,11 @@ int main(void) {
             }
         }
     } // topological sort
+    
+    if(!flag) {
+        printf("0");
+        return 0;
+    }
     
     for(int i=0; i<n; i++) {
         printf("%d\n", result.front());
