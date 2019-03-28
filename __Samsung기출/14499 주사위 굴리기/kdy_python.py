@@ -6,7 +6,7 @@ Map = [list(map(int, input().split())) for _ in range(N)]
 
 command = list(map(int, input().split()))
 
-print(command)
+#print(command)
 
 dice = [-1, 0, 0, 0, 0, 0, 0]
 
