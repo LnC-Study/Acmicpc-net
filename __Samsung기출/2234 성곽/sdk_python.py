@@ -32,7 +32,9 @@ def classify():
 
             for direction in DIRECTIONS:
                 next_pos = get_next_pos(current, direction)
-                if is_able_to_go(current, direction) and is_in(next_pos) and not visited[next_pos[0]][next_pos[1]]:
+                if not is_able_to_go(current, direction) and is_in(next_pos):
+                    rooms[tag]['connected'].add(classified[next_pos[0]][next_pos[1]])
+                elif is_in(next_pos) and not visited[next_pos[0]][next_pos[1]]:
                     visited[next_pos[0]][next_pos[1]] = True
                     pos_queue.append(next_pos)
 
@@ -41,33 +43,14 @@ def classify():
     for row in range(height):
         for col in range(width):
             if classified[row][col] == 0:
-                area = spread(row, col, room_tag)
                 rooms[room_tag] = {
-                    'area': area,
                     'start': (row, col),
                     'connected': set()
                 }
+                rooms[room_tag]['area'] = spread(row, col, room_tag)
                 room_tag += 1
 
     return classified, rooms
-
-def get_adjacent_state(classified, rooms):
-    current_room, visited = None, [[False for col in range(width)] for row in range(height)]
-
-    def find_connected_room(current_pos, current_tag):
-        for direction in DIRECTIONS:
-            next_pos = get_next_pos(current_pos, direction)
-            if not is_able_to_go(current_pos, direction) and is_in(next_pos):
-                rooms[tag]['connected'].add(classified[next_pos[0]][next_pos[1]])
-            elif is_in(next_pos) and not visited[next_pos[0]][next_pos[1]]:
-                visited[next_pos[0]][next_pos[1]] = True
-                find_connected_room(next_pos, current_tag)
-
-    for tag in rooms:
-        current_tag = tag
-        find_connected_room(rooms[tag]['start'], tag)
-
-    return rooms
 
 def get_result(rooms):
     count, max_area = len(rooms), max(map(lambda x: rooms[x]['area'], rooms))
@@ -75,7 +58,7 @@ def get_result(rooms):
     max_union_area = -1
     for tag in rooms:
         for connected_room_tag in rooms[tag]['connected']:
-            if tag == connected_room_tag: continue
+            if connected_room_tag in (0, tag): continue
 
             union_area = rooms[tag]['area'] + rooms[connected_room_tag]['area']
             max_union_area = max(max_union_area, union_area)
@@ -84,7 +67,6 @@ def get_result(rooms):
 
 def solution():
     classified, rooms = classify()
-    rooms = get_adjacent_state(classified, rooms)
     return get_result(rooms)
 
 if __name__ == '__main__':
