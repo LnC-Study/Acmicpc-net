@@ -15,7 +15,7 @@ class cleaner:
         self.visited = rooms
         self.done = 0
         self.queue = collections.deque([])
-        self.back = 1
+        self.back = True
 
     def is_in(self, row, col):
         if (0 <= row < M) and (0 <= col < N):
