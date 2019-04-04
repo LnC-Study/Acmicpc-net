@@ -31,10 +31,14 @@ class cleaner:
         while len(self.queue) > 0:
             cur = self.queue.popleft()
 
-            #self.back = 1
+            self.back = 1
             for next in range(4):
+                if self.dir >= 4:
+                    self.dir = 0
+
                 curDir = direction[self.dir] # 현재 방향에서 왼쪽이 curDir
                 nextRow, nextCol = cur[0] + curDir[0], cur[1] + curDir[1] # 현위치에서 바라보는 방향으로 왼쪽칸
+                self.dir += 1
                 if self.is_in(nextRow, nextCol) is True:
                     if self.visited[nextRow][nextCol] == 0: # 이게 격자 안에 있고, 방문하지 않은거
                         self.visited[nextRow][nextCol] = 1
@@ -42,10 +46,6 @@ class cleaner:
                         self.done += 1
                         self.back = 0
                         break
-
-                self.dir += 1
-                if self.dir >= 4:
-                    self.dir = 0
 
             if self.back == 1:
                 if self.dir == 0:
@@ -57,11 +57,10 @@ class cleaner:
                 else:
                     back = (cur[0], cur[1]-1)
 
-                self.queue.appendleft(back)
-                self.back += 1
+                if self.is_in(back[0], back[1]):
+                    self.queue.appendleft(back)
 
-            elif self.back == 2:
-                return self.done
+        return self.done
 
 
 robot = cleaner(rPos, cPos, di[initDir], N, M)
