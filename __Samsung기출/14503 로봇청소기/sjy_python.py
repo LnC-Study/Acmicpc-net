@@ -8,7 +8,7 @@ di = {0: 0, 1: 3, 2: 2, 3: 1} # 차례대로 북,동,남,서 --> 0, 1, 2, 3 쪽�
 
 
 class cleaner:
-    def __init__(self, row, col, dir, N, M):
+    def __init__(self, row, col, dir):
         self.row = row
         self.col = col
         self.dir = dir
@@ -29,15 +29,15 @@ class cleaner:
         self.done += 1
 
         while len(self.queue) > 0:
-            cur = self.queue.popleft()
+            curPos = self.queue.popleft()
 
             self.back = True
             for next in range(4):
                 if self.dir >= 4:
                     self.dir = 0
 
-                curDir = direction[self.dir] # 현재 방향에서 왼쪽이 curDir
-                nextRow, nextCol = cur[0] + curDir[0], cur[1] + curDir[1] # 현위치에서 바라보는 방향으로 왼쪽칸
+                left = direction[self.dir] # 현재 방향에서 왼쪽이 curDir
+                nextRow, nextCol = curPos[0] + left[0], curPos[1] + left[1] # 현위치에서 바라보는 방향으로 왼쪽칸
                 self.dir += 1
                 if self.is_in(nextRow, nextCol) is True:
                     if self.visited[nextRow][nextCol] == 0: # 이게 격자 안에 있고, 방문하지 않은거
@@ -49,13 +49,13 @@ class cleaner:
 
             if self.back is True:
                 if self.dir == 0:
-                    back = (cur[0]+1, cur[1])
+                    back = (curPos[0]+1, curPos[1])
                 elif self.dir == 1:
-                    back = (cur[0], cur[1]+1)
+                    back = (curPos[0], curPos[1]+1)
                 elif self.dir == 2:
-                    back = (cur[0]-1, cur[1])
+                    back = (curPos[0]-1, curPos[1])
                 else:
-                    back = (cur[0], cur[1]-1)
+                    back = (curPos[0], curPos[1]-1)
 
                 if self.is_in(back[0], back[1]):
                     self.queue.appendleft(back)
@@ -63,6 +63,6 @@ class cleaner:
         return self.done
 
 
-robot = cleaner(rPos, cPos, di[initDir], N, M)
+robot = cleaner(rPos, cPos, di[initDir])
 print(robot.go())
 
