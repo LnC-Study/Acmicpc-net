@@ -31,7 +31,7 @@ class cleaner:
         while len(self.queue) > 0:
             cur = self.queue.popleft()
 
-            self.back = 1
+            self.back = True
             for next in range(4):
                 if self.dir >= 4:
                     self.dir = 0
@@ -44,10 +44,10 @@ class cleaner:
                         self.visited[nextRow][nextCol] = 1
                         self.queue.append((nextRow, nextCol))
                         self.done += 1
-                        self.back = 0
+                        self.back = False
                         break
 
-            if self.back == 1:
+            if self.back is True:
                 if self.dir == 0:
                     back = (cur[0]+1, cur[1])
                 elif self.dir == 1:
