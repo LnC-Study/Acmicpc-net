@@ -1,5 +1,3 @@
-import collections
-
 N, M = list(map(int, input().split(' ')))
 rPos, cPos, initDir = list(map(int, input().split(' ')))
 rooms = [list(map(int, input().split(' '))) for _ in range(N)]
@@ -14,53 +12,58 @@ class cleaner:
         self.dir = dir
         self.visited = rooms
         self.done = 0
-        self.queue = collections.deque([])
-        self.back = True
+        self.queue = []
+        self.flag = True
 
     def is_in(self, row, col):
-        if (0 <= row < M) and (0 <= col < N):
+        if (0 <= col < M) and (0 <= row < N):
             return True
 
         return False
 
     def go(self):
-        self.visited[self.row][self.col] = 1
+        self.visited[self.row][self.col] = 2
         self.queue.append((self.row, self.col))
         self.done += 1
 
         while len(self.queue) > 0:
-            curPos = self.queue.popleft()
+            curPos = self.queue.pop()
 
-            self.back = True
+            self.flag = True
             for next in range(4):
+                left = direction[self.dir] # 현재 방향에서 왼쪽이 curDir
+
+                self.dir += 1
                 if self.dir >= 4:
                     self.dir = 0
 
-                left = direction[self.dir] # 현재 방향에서 왼쪽이 curDir
                 nextRow, nextCol = curPos[0] + left[0], curPos[1] + left[1] # 현위치에서 바라보는 방향으로 왼쪽칸
-                self.dir += 1
                 if self.is_in(nextRow, nextCol) is True:
                     if self.visited[nextRow][nextCol] == 0: # 이게 격자 안에 있고, 방문하지 않은거
-                        self.visited[nextRow][nextCol] = 1
+                        self.visited[nextRow][nextCol] = 2
                         self.queue.append((nextRow, nextCol))
                         self.done += 1
-                        self.back = False
+                        self.flag = False
                         break
 
-            if self.back is True:
+            if self.flag is True:
                 if self.dir == 0:
-                    back = (curPos[0]+1, curPos[1])
+                    back = (curPos[0] + 1, curPos[1])
+
                 elif self.dir == 1:
-                    back = (curPos[0], curPos[1]+1)
+                    back = (curPos[0], curPos[1] + 1)
+
                 elif self.dir == 2:
-                    back = (curPos[0]-1, curPos[1])
+                    back = (curPos[0] - 1, curPos[1])
+
                 else:
-                    back = (curPos[0], curPos[1]-1)
+                    back = (curPos[0], curPos[1] - 1)
 
-                if self.is_in(back[0], back[1]):
-                    self.queue.appendleft(back)
+                if self.is_in(back[0], back[1]) and self.visited[back[0]][back[1]] != 1:
+                    self.queue.append(back)
 
-        return self.done
+                else:
+                    return self.done
 
 
 robot = cleaner(rPos, cPos, di[initDir])
