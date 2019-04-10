@@ -40,6 +40,7 @@ class Task:
             self.__next()
             if not self.__is_in(): return (self.pos_x, self.pos_y)
             if self.__is_visited(): return (0, 0)
+            self.board[self.pos_y][self.pos_x].add(self.direction)
 
 def data_in():
     N, R = map(int, input().split())
