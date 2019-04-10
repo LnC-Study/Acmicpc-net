@@ -3,17 +3,17 @@ L, U, R, D = 0, 1, 2, 3
 DIRECTIONS = [(0,-1), (1, 0), (0, 1), (-1, 0)]
 
 class Task:
-    def __init__(self, mirrors, razer_init_x, razer_init_y):
-        self.direction = self.__get_init_direction(razer_init_x, razer_init_y)
-        self.pos_x, self.pos_y = razer_init_x, razer_init_y
+    def __init__(self, mirrors, laser_init_x, laser_init_y):
+        self.direction = self.__get_init_direction(laser_init_x, laser_init_y)
+        self.pos_x, self.pos_y = laser_init_x, laser_init_y
         self.__init_board(mirrors)
 
     @staticmethod
-    def __get_init_direction(razer_init_x, razer_init_y):
-        if razer_init_x == board_size + 1: return L
-        if razer_init_x == 0: return R
-        if razer_init_y == board_size + 1: return D
-        if razer_init_y == 0: return U
+    def __get_init_direction(laser_init_x, laser_init_y):
+        if laser_init_x == board_size + 1: return L
+        if laser_init_x == 0: return R
+        if laser_init_y == board_size + 1: return D
+        if laser_init_y == 0: return U
 
     def __init_board(self, mirrors):
         self.board = [[set() for col in range(board_size + 1)] for row in range(board_size + 1)]
@@ -44,18 +44,18 @@ class Task:
 def data_in():
     N, R = map(int, input().split())
     mirrors = [tuple(map(int, input().split())) for _ in range(R)]
-    razer_init_x, razer_init_y = map(int, input().split())
-    return N, R, mirrors, razer_init_x, razer_init_y
+    laser_init_x, laser_init_y = map(int, input().split())
+    return N, R, mirrors, laser_init_x, laser_init_y
 
-def solution(mirrors, razer_init_x, razer_init_y):
-    return Task(mirrors, razer_init_x, razer_init_y).do()
+def solution(mirrors, laser_init_x, laser_init_y):
+    return Task(mirrors, laser_init_x, laser_init_y).do()
 
 if __name__ == '__main__':
     global board_size
 
     test_case = int(input())
     for _ in range(test_case):
-        board_size, _, mirrors, razer_init_x, razer_init_y = data_in()
-        ans = solution(mirrors, razer_init_x, razer_init_y)
+        board_size, _, mirrors, laser_init_x, laser_init_y = data_in()
+        ans = solution(mirrors, laser_init_x, laser_init_y)
 
         print(ans[0], ans[1])
