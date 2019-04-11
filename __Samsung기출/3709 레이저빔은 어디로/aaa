@@ -1,0 +1,56 @@
+#include <iostream>
+#include <stdio.h>
+#include <utility>
+
+using namespace std;
+
+int n, r; //n = size of board, r =  the number of mirror
+int bsize[15][15];
+int ssize[15][15];
+pair<int, int> laser;
+void turn(int, int);
+
+void turn(int x, int y){
+    
+}
+void straight(int x, int y){
+    if(x == 0 || y ==0 || x ==n + 1 || y == n+1 ){//passed
+    
+        cout << "result = " << x, y;
+    }
+
+}
+
+int main() {
+    int testCase;
+    int a, b;
+    int laser;
+	//int z=x+y;
+    
+    scanf("%d", &testCase);
+    
+    while(testCase > 0){
+        scanf("%d %d", &n, &r);
+     //   printf("n = %d, r = %d",n, r );
+        
+        memset(bsize, 0, sizeof(bsize));
+        memset(ssize, 0, sizeof(ssize));
+        while(r >= 0){
+            scanf("%d %d", &a, &b);
+            bsize[a][b] = ssize[a][b] = -1;
+            r --;
+        }//last value of a,b is laser.
+        if(a==0) a ++; if(b==0) b++;
+        if(a == n + 1)a--; if(b==n+1)b--;
+        laser = make_pair(a, b);
+        straight(a, b);
+        turn(a,b);    
+        
+       // cout <<" n = "<<ssize[a][b] << endl;
+        //printf("n = %d, r = %d\n ssize = %d\n",a, b, ssize[a][b]);
+        testCase --;
+    }
+//	puts(testCase);
+
+	cout<<"Sum of x+y = " << n;
+}
