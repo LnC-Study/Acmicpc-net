@@ -3,6 +3,7 @@
 int main(void) {
 
 	int w, h, p, q, t;
+	int i;
 	int x = 1;
 	int y = 1;
 
