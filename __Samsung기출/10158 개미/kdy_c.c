@@ -10,7 +10,7 @@ int main(void) {
 	scanf_s("%d %d", &p, &q);
 	scanf_s("%d", &t);
 
-	while(t) {
+	for (i = 0;i < t;i++) {
 		if (p == w || p == 0) {
 			x = -(x);
 		}
