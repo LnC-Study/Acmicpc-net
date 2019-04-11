@@ -2,25 +2,25 @@
 #include <stdlib.h>
 
 int main() {
-    int i;
     int w, h;
     int p, q;
     int t;
-    int dirw=1;
-    int dirh=1;
+    int x, y;
     
     scanf("%d %d", &w, &h);
     scanf("%d %d", &p, &q);
     scanf("%d", &t);
     
+    if(!(((p+t)/w)%2))//양 옆으로 몇 번 부딪히는지? 두 번 부딪히면 같은방향
+        x = (p+t)%w;
+    else
+        x = w-((p+t)%w);
+    if(!(((q+t)/h)%2))// 위 아래로 몇 번 부딪히는지? 두 번 부딪히면 같은방향
+        y=(q+t)%h;
+    else
+        y=h-((q+t)%h);
     
-    for(i=0;i<t;i++){
-        if(p+dirw>w || p+dirw<0) dirw=-dirw;
-        if(q+dirh>h || q+dirh<0) dirh=-dirh;
-        p=p+dirw; q=q+dirh;
-    }
-    
-    printf("%d %d\n", p, q);
+    printf("%d %d\n", x, y);
     
     return 0;
 }
