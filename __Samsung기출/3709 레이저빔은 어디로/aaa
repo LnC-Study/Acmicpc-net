@@ -9,17 +9,8 @@ int bsize[15][15];
 int ssize[15][15];
 pair<int, int> laser;
 void turn(int, int);
+void straight(int, int);
 
-void turn(int x, int y){
-    
-}
-void straight(int x, int y){
-    if(x == 0 || y ==0 || x ==n + 1 || y == n+1 ){//passed
-    
-        cout << "result = " << x, y;
-    }
-
-}
 
 int main() {
     int testCase;
