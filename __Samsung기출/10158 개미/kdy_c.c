@@ -15,7 +15,7 @@ int main(void) {
 		if (p == w || p == 0) {
 			x = -(x);
 		}
-		else if (q == 0 || q == h) {
+		if (q == 0 || q == h) {
 			y = -(y);
 		}
 		p += x;
