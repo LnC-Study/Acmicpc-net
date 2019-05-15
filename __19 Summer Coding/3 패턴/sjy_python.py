@@ -26,6 +26,7 @@ class point:
         else:
             return False
 
+
 class line:
     def __init__(self, p1, p2):
         self.point1 = p1
@@ -45,17 +46,22 @@ def ccw(point1, point2, point3):
 
 
 def hasIntersection(line1, line2):
-    ab = ccw(line1.point1, line1.point2, line2.point1) * ccw(line1.point1, line1.point2, line2.point2)
-    cd = ccw(line2.point1, line2.point2, line1.point1) * ccw(line2.point1, line2.point2, line1.point2)
+    a = line1.point1
+    b = line1.point2
+    c = line2.point1
+    d = line2.point2
+
+    ab = ccw(a, b, c) * ccw(a, b, d)
+    cd = ccw(c, d, a) * ccw(c, d, b)
 
     if ab == 0 and cd == 0:
-        if line1.point1.gt(line1.point2):
-            line1.point1, line1.point2 = line1.point2, line1.point1
+        if a.gt(b):
+            a, b = b, a
 
-        if line2.point1.gt(line2.point2):
-            line2.point1, line2.point2 = line2.point2, line2.point1
+        if c.gt(d):
+            c, d = d, c
 
-        return not line1.point1.gt(line2.point2) and not line2.point1.gt(line1.point2)
+        return not a.gt(d) and not c.gt(b)
 
     return ab <= 0 and cd <= 0
 
@@ -76,4 +82,3 @@ for line1 in lines:
     answer.append(count)
 
 print(answer)
-
