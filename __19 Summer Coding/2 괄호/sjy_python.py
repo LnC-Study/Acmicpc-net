@@ -1,3 +1,5 @@
+# cheated injun's...TT
+
 import itertools
 
 
