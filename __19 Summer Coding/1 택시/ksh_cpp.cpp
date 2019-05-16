@@ -19,22 +19,33 @@ int main() {
 	sort(ary.begin(), ary.end());
 
 	//3rd. matching
-	int count = 0;
+	int count = 0, sum = 0;
 	int head = 0, tail = groupNum-1;
-	while(head <= tail) {
-		count++;
-		if (head == tail)
-			break;
-		if (ary[head] + ary[tail] <= 4) {
+	while (head <= tail) {
+		if (sum + ary[head] + ary[tail] <= 4 && head != tail) {
+			sum += (ary[head] + ary[tail]);
+			//cout << ary[head] << " , " << ary[tail] << " , ";
 			head++; tail--;
 		}
-		else if (ary[head] + ary[tail] > 4) {
+		else if (sum + ary[tail] <= 4) {
+			sum += ary[tail];
+			//cout << ary[tail] << " , ";
 			tail--;
 		}
-		cout << count << " ) " << head << " - " << tail << "\n";
+		else if (sum + ary[head] <= 4) {
+			sum += ary[head];
+			//cout << ary[head] << " , ";
+			head++;
+		}
+		else {
+			count++; sum = 0;
+			//cout << "\n--- " << count << " ---\n\n";
+		}
+		//cout << "sum : " << sum << " / " << ary[head] << " - " << ary[tail] << "\n";
 	}
+	count++;
 
-	cout << "\n" << count << "\n";
+	cout << "\nres : " << count << "\n";
 
 	return 0;
 }
