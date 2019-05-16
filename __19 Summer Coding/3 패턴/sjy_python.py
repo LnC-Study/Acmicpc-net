@@ -34,7 +34,7 @@ class line:
 
 
 def ccw(point1, point2, point3):
-    op = point1.xPos * point1.yPos + point2.xPos * point2.yPos + point3.xPos * point3.yPos
+    op = point1.xPos * point2.yPos + point2.xPos * point3.yPos + point3.xPos * point1.yPos
     op -= (point1.yPos * point2.xPos + point2.yPos * point3.xPos + point3.yPos * point1.xPos)
 
     if op > 0:
