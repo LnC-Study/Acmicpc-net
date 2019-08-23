@@ -18,12 +18,12 @@ def solution(N, number):
         if init_num == number:
             return i
 
-        for j in range(1,i):
-            for k in range(4):
+        for N_cnt in range(1,i):
+            for op_cnt in range(4):
                 # cache[j]에 있는 모든 값 과 cache[i-j]에 있는 모든 값을 연산해서 넣어줘야 한다.
-                for e1 in cache[j]:
-                    for e2 in cache[i-j]:
-                        unit_ans = op_list[k](e1, e2)
+                for e1 in cache[N_cnt]:
+                    for e2 in cache[i-N_cnt]:
+                        unit_ans = op_list[op_cnt](e1, e2)
 
                         if unit_ans is not None:
                             cache[i].add(unit_ans)
@@ -32,6 +32,3 @@ def solution(N, number):
                             return i
 
     return -1
-
-
-print(solution(5,12))
