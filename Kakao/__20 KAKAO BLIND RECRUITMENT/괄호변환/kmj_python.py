@@ -32,7 +32,7 @@ def check(w):
             index = i
             break
     if len(stack) == 0:
-        isValidate = True
+        is_valid = True
     return w[:index+1], w[index+1:], is_valid
 
 
